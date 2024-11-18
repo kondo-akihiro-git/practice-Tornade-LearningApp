@@ -11,6 +11,14 @@ class LessonHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("lesson.html", lesson_title="Lesson 1: Introduction to Python")
 
+class AboutHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("about.html", message="This is the About Page")
+
+class ContactHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("contact.html", message="Contact Us Here")
+
 
 # Tornadoの設定
 def make_app():
@@ -18,6 +26,8 @@ def make_app():
         [
             (r"/", MainHandler),
             (r"/lesson", LessonHandler),
+            (r"/about", AboutHandler),
+            (r"/contact", ContactHandler),
         ],
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
