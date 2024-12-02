@@ -25,19 +25,15 @@ class CategoryHandler(tornado.web.RequestHandler):
     def get(self, category_id):
         self.set_header("Access-Control-Allow-Origin", "*")  # CORSを許可
         lessons = {
-            1: {"lesson": "Learn Python basics including syntax, variables, and data structures."},
-            2: {"lesson": "Learn JavaScript, focusing on functions, arrays, and object-oriented programming."},
-            3: {"lesson": "Master Ruby programming, including its syntax, methods, and classes."},
-            4: {"lesson": "Java programming for beginners: variables, loops, and object-oriented principles."},
-            5: {"lesson": "Learn C++ with a focus on memory management, classes, and templates."},
-            6: {"lesson": "Master Go programming, including goroutines, channels, and concurrency."},
-            7: {"lesson": "Learn PHP basics, focusing on server-side scripting and web development."},
-            8: {"lesson": "Swift for beginners: building iOS apps with UIKit and SwiftUI."},
-            9: {"lesson": "Learn C#, including object-oriented principles and .NET framework for web development."},
-            10: {"lesson": "Rust programming for systems programming with a focus on memory safety and performance."}
+            1: {"category": "セキュリティ", "keyword": "クラウド", "description": "クラウドとは…"},
+            2: {"category": "プログラミング", "keyword": "Python", "description": "Pythonとは…"},
+            3: {"category": "プログラミング", "keyword": "JavaScript", "description": "JavaScriptとは…"},
+            4: {"category": "データベース", "keyword": "SQL", "description": "SQLとは…"},
+            # 他のカテゴリも同様に追加できます
         }
         lesson_data = lessons.get(int(category_id), {"lesson": "No lesson found for this category."})
         self.write(lesson_data)
+
 
 def make_app():
     return tornado.web.Application([
