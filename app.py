@@ -8,31 +8,35 @@ class MainHandler(tornado.web.RequestHandler):
         self.set_header("Content-Type", "application/json")
         self.set_header("Access-Control-Allow-Origin", "*")  # CORSを許可
         categories = [
-            {"id": 1, "name": "Python"},
-            {"id": 2, "name": "JavaScript"},
-            {"id": 3, "name": "Ruby"},
-            {"id": 4, "name": "Java"},
-            {"id": 5, "name": "C++"},
-            {"id": 6, "name": "Go"},
-            {"id": 7, "name": "PHP"},
-            {"id": 8, "name": "Swift"},
-            {"id": 9, "name": "C#"},
-            {"id": 10, "name": "Rust"}
+            {"id": 1, "name": "セキュリティ"},
+            {"id": 2, "name": "プログラミング"},
+            {"id": 3, "name": "フロントエンド"},
+            {"id": 4, "name": "データベース"},
         ]
         self.write(json.dumps({"categories": categories}))
 
 class CategoryHandler(tornado.web.RequestHandler):
     def get(self, category_id):
         self.set_header("Access-Control-Allow-Origin", "*")  # CORSを許可
-        lessons = {
-            1: {"category": "セキュリティ", "keyword": "クラウド", "description": "クラウドとは…"},
-            2: {"category": "プログラミング", "keyword": "Python", "description": "Pythonとは…"},
-            3: {"category": "プログラミング", "keyword": "JavaScript", "description": "JavaScriptとは…"},
-            4: {"category": "データベース", "keyword": "SQL", "description": "SQLとは…"},
-            # 他のカテゴリも同様に追加できます
+        data = {
+            1: [
+                {"category": "セキュリティ", "keyword": "クラウド", "description": "クラウドとは…"},
+                {"category": "セキュリティ", "keyword": "Adobe", "description": "Adobeとは…"}
+            ],
+            2: [
+                {"category": "プログラミング", "keyword": "Python", "description": "Pythonとは…"}
+            ],
+            3: [
+                {"category": "フロントエンド", "keyword": "JavaScript", "description": "JavaScriptとは…"},
+                {"category": "フロントエンド", "keyword": "TypeScript", "description": "TypeScriptとは…"}
+            ],
+            4: [
+                {"category": "データベース", "keyword": "SQL", "description": "SQLとは…"}
+            ]
         }
-        lesson_data = lessons.get(int(category_id), {"lesson": "No lesson found for this category."})
-        self.write(lesson_data)
+        category_data = data.get(int(category_id), [])
+        self.write({"lessons": category_data})
+
 
 
 def make_app():
